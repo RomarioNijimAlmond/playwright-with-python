@@ -20,8 +20,11 @@ def test_buy_product_and_checkout(page: Page):
     login_page.goto(ApplicationUrl.SAUCE_DEMO)
     login_page.login_to_sauce_demo()
 
-    product_page.choose_product_from_list("Sauce Labs Bolt T-Shirt")
-    product_page.choose_product_from_list("Sauce Labs Backpack")
+    remove_btn = product_page.choose_product_from_list("Sauce Labs Bolt T-Shirt")
+    assert "remove" in remove_btn
+    remove_btn2 = product_page.choose_product_from_list("Sauce Labs Backpack")
+    assert "remove" in remove_btn2
+    
     items_count = product_page.get_shopping_cart_items()
     assert items_count == "2"
     product_page.click_on_cart_basket()
