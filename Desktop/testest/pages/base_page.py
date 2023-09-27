@@ -34,4 +34,28 @@ class BasePage:
         for i in range(len(items)):
             item_inner_text = items[i].inner_text()
             arr.append(item_inner_text)
-            return arr
+        return arr
+        
+    def get_column_index_by_name(self,locator,text):
+        columns = self.page.locator(locator).all()
+        for i in range(len(columns)):
+            column_inner_text = columns[i].inner_text()
+            if(column_inner_text == text):
+                return i
+            
+    def get_order_of_cell_values(self,locator, columname):
+        arr:list = []
+        rows = self.page.locator(locator).all()
+        column = self.get_column_index_by_name(locator, columname)
+        for row in rows:
+            cell = row.locator('td').nth(column)
+            cell_inner_text = cell.inner_text()
+            arr.append(cell_inner_text)
+        return arr
+
+    def get_table_cell_value(self, locator, rowtext, columnname):
+        row = self.page.locator(locator, has_text=rowtext)
+        column = self.get_column_index_by_name(locator, columnname)
+        cell_value = row.locator('td').nth(column)
+        cell_inner_text = cell_value.inner_text()
+        return cell_inner_text
