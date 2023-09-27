@@ -10,4 +10,4 @@ class OrderCompletion(BasePage):
 
 
     def  get_order_confirmation(self):
-        self.get_inner_text(self._completion_header)
+        return self.get_inner_text(self._completion_header)

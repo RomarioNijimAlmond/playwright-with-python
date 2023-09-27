@@ -40,7 +40,7 @@ class BasePage:
         columns = self.page.locator(locator).all()
         for i in range(len(columns)):
             column_inner_text = columns[i].inner_text()
-            if(column_inner_text == text):
+            if column_inner_text == text:
                 return i
             
     def get_order_of_cell_values(self,locator, columname):

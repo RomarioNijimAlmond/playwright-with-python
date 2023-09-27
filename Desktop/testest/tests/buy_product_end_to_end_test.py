@@ -8,7 +8,8 @@ from pages.order_completion import OrderCompletion
 from enums.Enums import ApplicationUrl
 from utils.faker import Randomizer
 
-def test_buy_product_and_checkout(page:Page):
+
+def test_buy_product_and_checkout(page: Page):
     login_page = LoginPage(page)
     cart_page = CartPage(page)
     product_page = ProductPage(page)
@@ -28,7 +29,7 @@ def test_buy_product_and_checkout(page:Page):
     basket_items = cart_page.count_basket_items()
     assert basket_items == 2
     order = cart_page.return_order_of_items_in_cart()
-    assert order == ["Sauce Labs Bolt T-Shirt","Sauce Labs Backpack"]
+    assert order == ["Sauce Labs Bolt T-Shirt", "Sauce Labs Backpack"]
 
     bolt_shirt = cart_page.get_item_quantity("Sauce Labs Bolt T-Shirt")
     assert bolt_shirt == "1"
@@ -38,11 +39,17 @@ def test_buy_product_and_checkout(page:Page):
 
     cart_page.click_checkout()
 
-    checkout_step_one.fill_checkout_details(Randomizer.generate_Random_name(), Randomizer.generate_random_lastname(), Randomizer.generate_random_address())
+    checkout_step_one.fill_checkout_details(Randomizer.generate_Random_name(), Randomizer.generate_random_lastname(),
+                                            Randomizer.generate_random_address())
     checkout_step_one.click_continue()
 
     list_items = checkout_overview.get_over_view_list_items()
-    assert list_items == ["Sauce Labs Bolt T-Shirt","Sauce Labs Backpack"]
+    assert list_items == ["Sauce Labs Bolt T-Shirt", "Sauce Labs Backpack"]
+
+    total_price = checkout_overview.get_total_price()
+    assert total_price == "Total: $49.66"
+
+    checkout_overview.click_finish()
 
     completion = order_completion.get_order_confirmation()
     assert completion == "Thank you for your order!"
