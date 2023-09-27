@@ -59,3 +59,10 @@ class BasePage:
         cell_value = row.locator('td').nth(column)
         cell_inner_text = cell_value.inner_text()
         return cell_inner_text
+    
+    # def get_input_fields_values(self, locator):
+    #     input_fields_order:list = []
+    #     fields = self.page.locator(locator).all()
+    #     for i in range(len(fields)):
+    #         field_inputs = fields[i]
+    #         if field_inputs.evaluate(lambda e: e.tag_nma)
